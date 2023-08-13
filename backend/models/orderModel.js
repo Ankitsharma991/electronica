@@ -8,12 +8,14 @@ const orderSchema = new mongoose.Schema({
     },
     city: {
       type: String,
-      require: true,
+      required: true,
     },
+
     state: {
       type: String,
       required: true,
     },
+
     country: {
       type: String,
       required: true,
@@ -54,55 +56,52 @@ const orderSchema = new mongoose.Schema({
   ],
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: "user",
+    ref: "User",
     required: true,
   },
   paymentInfo: {
     id: {
       type: String,
       required: true,
-      required: true,
     },
     status: {
       type: String,
       required: true,
-      required: true,
     },
-    paidAt: {
-      type: Date,
-      required: true,
-      required: true,
-    },
-    itemPrice: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    taxPrice: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    shippingPrice: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    totalPrice: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    orderStatus: {
-      type: String,
-      required: true,
-      default: "Processing",
-    },
-    deliveredAt: Date,
-    createdAt: {
-      type: Date,
-      default: Date.now(),
-    },
+  },
+  paidAt: {
+    type: Date,
+    required: true,
+  },
+  itemsPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  taxPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  shippingPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  totalPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  orderStatus: {
+    type: String,
+    required: true,
+    default: "Processing",
+  },
+  deliveredAt: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
