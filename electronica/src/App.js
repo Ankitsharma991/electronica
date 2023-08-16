@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import WebFont from "webfontloader";
+import Footer from "./component/layout/footer/Footer";
 
 function App() {
   useEffect(() => {
@@ -17,6 +18,7 @@ function App() {
   return (
     <Router>
       <Header />
+      <Footer />
     </Router>
   );
 }
