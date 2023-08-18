@@ -1,22 +1,25 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import "./Home.css";
 import { CgMouse } from "react-icons/cg";
 import Product from "./Product.js";
-
-const product = {
-  name: "Boat Immortal 150",
-  images: [
-    {
-      url: "https://cdn.shopify.com/s/files/1/0057/8938/4802/files/LED-LIGHTS.jpg?v=1686726447",
-    },
-  ],
-  _id: "an_kit.11",
-  price: "$21",
-};
+import MetaData from "../MetaData";
+import { getProduct } from "../../../actions/productActions";
+import { useSelector, useDispatch } from "react-redux";
 
 function Home() {
+  const dispatch = useDispatch();
+
+  const { loading, error, products, productsCount } = useSelector(
+    (state) => state.products
+  );
+
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
   return (
     <Fragment>
+      <MetaData title="Electronica" />
       <div className="banner">
         <p>Welcome to Electronica</p>
         <h1>FIND AMAZING GADGETS BELOW</h1>
@@ -29,14 +32,7 @@ function Home() {
       </div>
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+        {products && products.map((product) => <Product product={product} />)}
       </div>
     </Fragment>
   );
