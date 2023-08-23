@@ -7,7 +7,7 @@ const Product = ({ product }) => {
     edit: false,
     color: "rgba(20,20,20,0.1)",
     activeColor: "tomato",
-    value: product.rating,
+    value: product.ratings,
     isHalf: true,
     size: window.innerHeight < 600 ? 20 : 25,
   };
@@ -18,7 +18,7 @@ const Product = ({ product }) => {
       <p>{product.name}</p>
       <div>
         <ReactStars {...options} />{" "}
-        <span>({product.numOfReviews} Reviews)</span>
+        <span>({product.numberOfReviews} Reviews)</span>
       </div>
       <span>{`$${product.price}`}</span>
     </Link>
