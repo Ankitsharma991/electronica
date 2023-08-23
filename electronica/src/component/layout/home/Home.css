@@ -1,5 +1,6 @@
 .banner {
-  background-image: linear-gradient(to right, #635dc0, #3027ae);
+  /* background-image: linear-gradient(to right, #635dc0, #3027ae); */
+  background-image: url("../../../images/z.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -9,17 +10,23 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+  /* color: rgb(30, 214, 255); */
   color: white;
 }
 
 .banner > h1 {
   margin: 5vmax;
-
+  background-color: rgba(0, 0, 0, 0.4);
   font: 600 2.5vmax "Roboto";
+  padding: 0 15px;
+  backdrop-filter: blur(200px);
 }
 
 .banner > p {
-  font: 300 1.4vmax "Lucida Sans";
+  font: 400 1.8vmax "Lucida Sans";
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 0 15px;
+  backdrop-filter: blur(200px);
 }
 
 .banner > a > button {
