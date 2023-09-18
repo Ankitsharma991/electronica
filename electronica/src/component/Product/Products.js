@@ -17,7 +17,12 @@ const Products = ({ match }) => {
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
-
+  console.log(
+    "resultPerPage: ",
+    resultPerPage,
+    "ProductsCount: ",
+    productsCount
+  );
   useEffect(() => {
     dispatch(getProduct(keyword, currentPage));
   }, [dispatch, keyword, currentPage]);
@@ -34,8 +39,9 @@ const Products = ({ match }) => {
                 <ProductCard key={product._id} product={product} />
               ))}
           </div>
-          <div className="paginationBox">
-            <Pagination
+          {resultPerPage < productsCount && (
+            <div className="paginationBox">
+              <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={resultPerPage}
                 totalItemsCount={productsCount}
@@ -49,7 +55,8 @@ const Products = ({ match }) => {
                 activeClass="pageItemActive"
                 activeLinkClass="pageLinkActive"
               />
-          </div>
+            </div>
+          )}
         </Fragment>
       )}
     </Fragment>
