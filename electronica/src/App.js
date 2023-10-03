@@ -16,10 +16,10 @@ import UserOptions from "./component/layout/Header/UserOptions.js";
 import { useSelector } from "react-redux";
 import Profile from "./component/User/Profile.js";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
+import UpdateProfile from "./component/User/UpdateProfile.js";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-
   useEffect(() => {
     WebFont.load({
       google: {
@@ -40,6 +40,8 @@ function App() {
       <Route exact path="/products/:keyword" component={Products} />
       <Route exact path="/login" component={LoginSignup} />
       <ProtectedRoute exact path="/account" component={Profile} />
+      <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
+
       <Footer />
     </Router>
   );
