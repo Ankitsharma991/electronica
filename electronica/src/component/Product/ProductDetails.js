@@ -8,6 +8,7 @@ import Loader from "../layout/loader/Loader";
 import ReactStars from "react-rating-stars-component";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
+import { addItemsToCart } from "../../actions/CartActions";
 
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
@@ -27,11 +28,16 @@ const ProductDetails = ({ match }) => {
   };
 
   const decreaseQuantity = () => {
-    if (quantity < 1) {
+    if (quantity <= 1) {
       return;
     }
     const qty = quantity - 1;
     setQuantity(qty);
+  };
+
+  const addToCartHandler = () => {
+    dispatch(addItemsToCart(match.params.id, quantity));
+    alert.success("Item Added To Cart");
   };
 
   useEffect(() => {
@@ -86,10 +92,10 @@ const ProductDetails = ({ match }) => {
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
                     <button onClick={decreaseQuantity}>-</button>
-                    <input value={quantity} type="number" />
+                    <input readOnly value={quantity} type="number" />
                     <button onClick={increaseQuantity}>+</button>
-                  </div>{" "}
-                  <button>Add to Cart</button>
+                  </div>
+                  <button onClick={addToCartHandler}>Add to Cart</button>
                 </div>
                 <p>
                   Status:{" "}
