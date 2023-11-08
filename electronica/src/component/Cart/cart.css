@@ -1,0 +1,28 @@
+.cartPage {
+  padding: 5vmax;
+}
+.cartHeader {
+  background-color: tomato;
+  width: 90%;
+  box-sizing: border-box;
+  display: grid;
+  color: white;
+  margin: auto;
+  grid-template-columns: 4fr 1fr 1fr;
+  font: 300 1vmax "Roboto";
+}
+
+.cartHeader > p {
+  margin: 10px;
+}
+
+.cartHeader > p:last-child {
+  text-align: end;
+}
+
+.cartContainer {
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+}
