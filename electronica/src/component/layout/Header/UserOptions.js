@@ -9,17 +9,28 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../../actions/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 const UserOptions = ({ user }) => {
   const [open, setOpen] = useState(false);
   const alert = useAlert();
   const history = useHistory();
   const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
 
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: orders },
     { icon: <PersonIcon />, name: "Profile", func: account },
+    {
+      icon: (
+        <ShoppingCartIcon
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
+      name: `Cart${cartItems.length === 0 ? "" : cartItems.length}`,
+      func: Cart,
+    },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
 
@@ -49,6 +60,10 @@ const UserOptions = ({ user }) => {
     alert.success("Logout Successfully!");
   }
 
+  function Cart() {
+    history.push("/cart");
+  }
+
   return (
     <Fragment>
       <Backdrop open={open} style={{ zIndex: "10" }} />
@@ -74,6 +89,7 @@ const UserOptions = ({ user }) => {
             icon={item.icon}
             tooltipTitle={item.name}
             onClick={item.func}
+            tooltipOpen={window.innerWidth <= 600 ? true : false}
           />
         ))}
       </SpeedDial>
