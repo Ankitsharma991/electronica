@@ -88,13 +88,14 @@ const Payment = ({ history }) => {
         alert.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
-          history.pushState("/success");
+          history.push("/success");
         } else {
           alert.error("There's some issue while processing payment");
         }
       }
     } catch (error) {
       payBtn.current.disabled = false;
+      console.log(error)
       alert.error(error.response.data.message);
     }
   };

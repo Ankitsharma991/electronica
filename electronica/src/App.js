@@ -45,7 +45,7 @@ function App() {
       },
     });
     store.dispatch(loadUser());
-      getStripeApiKey()
+    getStripeApiKey();
   }, []);
 
   return (
@@ -71,10 +71,11 @@ function App() {
       <ProtectedRoute exact path="/shipping" component={Shipping} />
       <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
 
-    
-      <Elements stripe={loadStripe(stripeApiKey)}>
-        <ProtectedRoute exact path="/process/payment" component={Payment} />
-      </Elements>
+      {stripeApiKey && (
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <ProtectedRoute exact path="/process/payment" component={Payment} />
+        </Elements>
+      )}
 
       <Footer />
     </Router>
