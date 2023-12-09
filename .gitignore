@@ -4,11 +4,8 @@
 node_modules
 /.pnp
 .pnp.js
-.env
-./config.env
-/config
-/.env
-/.config.env
+backend/config/config.env
+
 
 # testing
 /coverage
