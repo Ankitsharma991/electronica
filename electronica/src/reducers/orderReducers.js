@@ -3,7 +3,7 @@ import {
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAIL,
   CLEAR_ERRORS,
-} from "../constants/orderConstants/";
+} from "../constants/orderConstants";
 
 export const newOrderReducer = (state = {}, action) => {
   switch (action.type) {

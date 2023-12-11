@@ -21,7 +21,7 @@ exports.newOrder = catchAsyncError(async (req, res, next) => {
     paymentInfo,
     itemsPrice,
     taxPrice,
-    shippingInfo,
+    shippingPrice,
     totalPrice,
     paidAt: Date.now(),
     user: req.user._id,

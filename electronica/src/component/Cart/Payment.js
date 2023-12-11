@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import CheckoutSteps from "./CheckoutSteps";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
@@ -17,6 +17,7 @@ import "./Payment.css";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import EventIcon from "@material-ui/icons/Event";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import { clearErrors, createOrder } from "../../actions/orderActions";
 // import {createOrder} from "../../actions/"
 
 const Payment = ({ history }) => {
@@ -29,7 +30,7 @@ const Payment = ({ history }) => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  // const { error } = useSelector((state) => state.newOrder);
+  const { error } = useSelector((state) => state.newOrder);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -37,15 +38,14 @@ const Payment = ({ history }) => {
 
   const payBtn = useRef(null);
 
-  //review
-  // const order = {
-  //   shippingInfo,
-  //   orderItems: cartItems,
-  //   itemsPrice: orderInfo.subTotal,
-  //   taxPrice: orderInfo.tax,
-  //   shippingPrice: orderInfo.shippingCharges,
-  //   totalPrice: orderInfo.totalPrice,
-  // };
+  const order = {
+    shippingInfo,
+    orderItems: cartItems,
+    itemsPrice: orderInfo.itemsPrice,
+    taxPrice: orderInfo.taxPrice,
+    shippingPrice: orderInfo.shippingPrice,
+    totalPrice: orderInfo.totalPrice,
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -88,6 +88,13 @@ const Payment = ({ history }) => {
         alert.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
+
+          dispatch(createOrder(order));
+
           history.push("/success");
         } else {
           alert.error("There's some issue while processing payment");
@@ -95,10 +102,17 @@ const Payment = ({ history }) => {
       }
     } catch (error) {
       payBtn.current.disabled = false;
-      console.log(error)
+      console.log(error);
       alert.error(error.response.data.message);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [error, alert, dispatch]);
 
   return (
     <Fragment>
