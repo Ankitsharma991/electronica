@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./component/layout/Header/Header.js";
 import React, { useEffect, useState } from "react";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import WebFont from "webfontloader";
 import Footer from "./component/layout/footer/Footer";
 import Home from "./component/layout/home/Home";
@@ -72,7 +72,6 @@ function App() {
       <Route exact path="/password/reset/:token" component={ResetPassword} />
       <Route exact path="/cart" component={Cart} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
-      <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
 
       {stripeApiKey && (
         <Elements stripe={loadStripe(stripeApiKey)}>
@@ -81,7 +80,10 @@ function App() {
       )}
       <ProtectedRoute exact path="/success" component={OrderSuccess} />
       <ProtectedRoute exact path="/orders" component={MyOrders} />
-      <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
+      <Switch>
+        <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
+        <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
+      </Switch>
       <Footer />
     </Router>
   );
