@@ -11,7 +11,11 @@ import {
   userReducer,
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/CartReducer";
-import { myOrdersReducer, newOrderReducer } from "./reducers/orderReducers";
+import {
+  myOrdersReducer,
+  newOrderReducer,
+  orderDetailsReducer,
+} from "./reducers/orderReducers";
 
 const reducer = combineReducers({
   products: productReducer,
@@ -21,7 +25,8 @@ const reducer = combineReducers({
   forgotPassword: forgotPasswordReducer,
   cart: cartReducer,
   newOrder: newOrderReducer,
-  myOrders: myOrdersReducer
+  myOrders: myOrdersReducer,
+  orderDetails: orderDetailsReducer,
 });
 
 let initialState = {
@@ -34,6 +39,7 @@ let initialState = {
       : {},
   },
 };
+
 const middleware = [thunk];
 const store = createStore(
   reducer,

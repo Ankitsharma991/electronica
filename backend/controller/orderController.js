@@ -1,4 +1,5 @@
 const Order = require("../models/orderModel");
+const User=require("../models/userModel");
 const Product = require("../models/productModels");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncError = require("../middleware/catchAsyncErrors");
@@ -46,7 +47,7 @@ exports.getSingleOrder = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    orders,
+    order,
   });
 });
 
