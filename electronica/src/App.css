@@ -10,15 +10,14 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"]{
+input[type="number"] {
   -moz-appearance: none;
-  
 }
 
-.greenColor{
-    color: green !important;
+.greenColor {
+  color: green !important;
 }
 
-.redColor{
-    color: red !important;
+.redColor {
+  color: red !important;
 }
