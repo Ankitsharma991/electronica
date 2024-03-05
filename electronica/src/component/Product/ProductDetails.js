@@ -9,6 +9,14 @@ import ReactStars from "react-rating-stars-component";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import { addItemsToCart } from "../../actions/CartActions";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@material-ui/core";
+import { Rating } from "@material-ui/lab";
 
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
@@ -18,6 +26,9 @@ const ProductDetails = ({ match }) => {
   );
 
   const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
 
   const increaseQuantity = () => {
     if (product.Stock <= quantity) {
@@ -55,6 +66,14 @@ const ProductDetails = ({ match }) => {
     size: window.innerWidth < 400 ? 20 : 25,
     value: product.ratings,
     isHalf: true,
+  };
+
+  const submitReviewToggle = () => {
+    setOpen(!open);
+  };
+
+  const reviewSubmitHandler = () => {
+    // const myForm = new FormData();
   };
 
   return (
@@ -114,10 +133,44 @@ const ProductDetails = ({ match }) => {
                 Description: <p>{product.description}</p>
               </div>
 
-              <button className="submitReview">Submit Review</button>
+              <button className="submitReview" onClick={submitReviewToggle}>
+                Submit Review
+              </button>
             </div>
           </div>
           <h2 className="reviewHeading">REVIEWS</h2>
+
+          <Dialog
+            aria-labelledby="simple-dialog-title"
+            open={open}
+            onClose={submitReviewToggle}
+          >
+            <DialogTitle>Submit Review</DialogTitle>
+            <DialogContent className="submitDialog">
+              <Rating
+                onChange={(e) => setRating(e.target.value)}
+                value={rating}
+                size="large"
+              />
+
+              <textarea
+                className="submitDialogTextArea"
+                cols="30"
+                rows="5"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={submitReviewToggle} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={reviewSubmitHandler} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           {product.reviews && product.reviews[0] ? (
             <div className="reviews">
               {product.reviews &&
