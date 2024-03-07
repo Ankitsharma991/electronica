@@ -85,7 +85,12 @@ function App() {
         <ProtectedRoute exact path="/order/confirm" component={ConfirmOrder} />
         <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
       </Switch>
-      <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/dashboard"
+        component={Dashboard}
+      />
       <Footer />
     </Router>
   );
