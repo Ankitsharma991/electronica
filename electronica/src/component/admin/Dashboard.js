@@ -4,6 +4,7 @@ import "./dashboard.css";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 
+
 const Dashboard = () => {
   return (
     <div className="dashboard">
@@ -31,6 +32,9 @@ const Dashboard = () => {
               <p>2</p>
             </Link>
           </div>
+        </div>
+        <div>
+          
         </div>
       </div>
     </div>
