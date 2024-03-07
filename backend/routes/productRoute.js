@@ -8,10 +8,15 @@ const {
   createProductReview,
   getProductReviews,
   deleteReview,
+  getAdminProducts,
 } = require("../controller/productController");
 const { isAuthenticatedUser, authorizedRole } = require("../middleware/auth");
 
-const router = express.Router();
+const router = express
+  .Router("/admin/products")
+  .get(isAuthenticatedUser, authorizedRole("admin"), getAdminProducts);
+
+router.route();
 
 router.route("/products").get(getAllProducts);
 router
