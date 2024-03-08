@@ -3,6 +3,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncError = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
 
+
 //Create Product
 exports.createProduct = catchAsyncError(async (req, res, next) => {
   req.body.user = req.user.id;
@@ -193,7 +194,7 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
 });
 
 // Get All Admin Product Lists
-exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
   const products = await Product.find();
 
   res.status(200).json({
