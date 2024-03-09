@@ -22,7 +22,8 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const { error, products } = useSelector((state) => state.products);
   let outOfStock = 0;
-  // console.log("Products: ",products)
+  console.log("Products: ",products)
+  console.log(products.length)
   products &&
     products.forEach((item) => {
       if (item.Stock === 0) {
@@ -55,6 +56,7 @@ const Dashboard = () => {
       },
     ],
   };
+  const len = products.length;
 
   const doughnutData = {
     labels: ["Out of Stock", "InStock"],
@@ -63,7 +65,7 @@ const Dashboard = () => {
         label: "TOTAL AMOUNT",
         backgroundColor: ["#00A6B4", "#6800B4"],
         hoverBackgroundColor: ["#4B5000", "#35014F"],
-        data: [outOfStock, 10],
+        data: [outOfStock, len-outOfStock],
       },
     ],
   };
@@ -83,7 +85,7 @@ const Dashboard = () => {
           <div className="dashboardSummaryBox2">
             <Link to="/admin/products">
               <p>Product</p>
-              <p>$0</p>
+              <p>{products && products.length}</p>
             </Link>
             <Link to="/admin/orders">
               <p>Orders</p>
