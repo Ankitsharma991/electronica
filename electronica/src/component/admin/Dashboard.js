@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./Sidebar.js";
 import "./dashboard.css";
 import { Link } from "react-router-dom";
@@ -15,8 +15,25 @@ import {
   PointElement,
   Tooltip,
 } from "chart.js";
+import { useSelector, useDispatch } from "react-redux";
+import { getAdminProducts } from "../../actions/productActions";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { error, products } = useSelector((state) => state.products);
+  let outOfStock = 0;
+  // console.log("Products: ",products)
+  products &&
+    products.forEach((item) => {
+      if (item.Stock === 0) {
+        outOfStock += 1;
+      }
+    });
+
+  useEffect(() => {
+    dispatch(getAdminProducts());
+  }, [dispatch]);
+
   Chart.register(
     BarElement,
     Tooltip,
@@ -46,7 +63,7 @@ const Dashboard = () => {
         label: "TOTAL AMOUNT",
         backgroundColor: ["#00A6B4", "#6800B4"],
         hoverBackgroundColor: ["#4B5000", "#35014F"],
-        data: [2,10],
+        data: [outOfStock, 10],
       },
     ],
   };

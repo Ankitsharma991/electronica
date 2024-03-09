@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,6 +16,13 @@ const ProductList = () => {
   const alert = useAlert();
 
   const { error, products } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, alert, error]);
 
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
@@ -75,7 +82,13 @@ const ProductList = () => {
         <Sidebar />
         <div className="productListContainer">
           <h1 id="productListHeading">ALL PRODUCTS</h1>
-          <DataGrid rows={rows} columns={columns} pageSize={10} className="productListTable" autoHeight />
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={10}
+            className="productListTable"
+            autoHeight
+          />
         </div>
       </div>
     </Fragment>

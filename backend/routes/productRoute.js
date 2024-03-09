@@ -12,13 +12,14 @@ const {
 } = require("../controller/productController");
 const { isAuthenticatedUser, authorizedRole } = require("../middleware/auth");
 
-const router = express
-  .Router("/admin/products")
+const router = express.Router();
+
+router
+  .route("/admin/products")
   .get(isAuthenticatedUser, authorizedRole("admin"), getAdminProducts);
 
-// router.route();
-
 router.route("/products").get(getAllProducts);
+
 router
   .route("/admin/product/new")
   .post(isAuthenticatedUser, authorizedRole("admin"), createProduct);
