@@ -17,9 +17,47 @@ import {
   NEW_PRODUCT_REQUEST,
   NEW_PRODUCT_RESET,
   NEW_PRODUCT_SUCCESS,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_RESET,
 } from "../constants/productConstants";
 
-export const productReducer = (state = { products: [] }, action) => {
+
+export const productReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_DELETE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case PRODUCT_DELETE_SUCCESS:
+      return {
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case PRODUCT_DELETE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case PRODUCT_DELETE_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const productsReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case ALL_PRODUCT_REQUEST:
     case ADMIN_PRODUCT_REQUEST:
@@ -118,7 +156,6 @@ export const newReviewReducer = (state = {}, action) => {
   }
 };
 
-
 export const newProductReducer = (state = {}, action) => {
   switch (action.type) {
     case NEW_PRODUCT_REQUEST:
@@ -130,7 +167,7 @@ export const newProductReducer = (state = {}, action) => {
       return {
         loading: false,
         success: action.payload.success,
-        product: action.payload.product
+        product: action.payload.product,
       };
     case NEW_PRODUCT_FAIL:
       return {

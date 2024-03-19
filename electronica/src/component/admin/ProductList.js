@@ -2,31 +2,64 @@ import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getAdminProducts } from "../../actions/productActions";
+import {
+  clearErrors,
+  getAdminProducts,
+  deleteProduct,
+} from "../../actions/productActions";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
-import Metadata from "../layout/MetaData";
+import MetaData from "../layout/MetaData";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Sidebar from "./Sidebar";
+import SideBar from "./Sidebar";
+import { PRODUCT_DELETE_RESET } from "../../constants/productConstants";
 
-const ProductList = () => {
+const ProductList = ({ history }) => {
   const dispatch = useDispatch();
+
   const alert = useAlert();
 
   const { error, products } = useSelector((state) => state.products);
+
+  const { error: deleteError, isDeleted } = useSelector(
+    (state) => state.product
+  );
+
+  const deleteProductHandler = (id) => {
+    dispatch(deleteProduct(id));
+  };
 
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, error]);
+
+    if (deleteError) {
+      alert.error(deleteError);
+      dispatch(clearErrors());
+    }
+
+    if (isDeleted) {
+      alert.success("Product Deleted Successfully");
+      history.push("/admin/dashboard");
+      dispatch({ type: PRODUCT_DELETE_RESET });
+    }
+
+    dispatch(getAdminProducts());
+  }, [dispatch, alert, error, deleteError, history, isDeleted]);
 
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
-    { field: "Name", headerName: "Name", minWidth: 350, flex: 1 },
+
+    {
+      field: "name",
+      headerName: "Name",
+      minWidth: 350,
+      flex: 1,
+    },
     {
       field: "stock",
       headerName: "Stock",
@@ -34,6 +67,7 @@ const ProductList = () => {
       minWidth: 150,
       flex: 0.3,
     },
+
     {
       field: "price",
       headerName: "Price",
@@ -41,21 +75,26 @@ const ProductList = () => {
       minWidth: 270,
       flex: 0.5,
     },
+
     {
       field: "actions",
       flex: 0.3,
       headerName: "Actions",
       minWidth: 150,
       type: "number",
-      sortable: "false",
+      sortable: false,
       renderCell: (params) => {
         return (
           <Fragment>
             <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
-              {" "}
-              <EditIcon />{" "}
+              <EditIcon />
             </Link>
-            <Button>
+
+            <Button
+              onClick={() =>
+                deleteProductHandler(params.getValue(params.id, "id"))
+              }
+            >
               <DeleteIcon />
             </Button>
           </Fragment>
@@ -65,27 +104,31 @@ const ProductList = () => {
   ];
 
   const rows = [];
+
   products &&
-    products.forEach((item) =>
+    products.forEach((item) => {
       rows.push({
         id: item._id,
         stock: item.Stock,
         price: item.price,
         name: item.name,
-      })
-    );
+      });
+    });
 
   return (
     <Fragment>
-      <Metadata title={`ALL PRODUCTS - Admin`} />
+      <MetaData title={`ALL PRODUCTS - Admin`} />
+
       <div className="dashboard">
-        <Sidebar />
+        <SideBar />
         <div className="productListContainer">
           <h1 id="productListHeading">ALL PRODUCTS</h1>
+
           <DataGrid
             rows={rows}
             columns={columns}
             pageSize={10}
+            disableSelectionOnClick
             className="productListTable"
             autoHeight
           />

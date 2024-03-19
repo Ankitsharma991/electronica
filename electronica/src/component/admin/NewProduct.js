@@ -43,7 +43,7 @@ const NewProduct = ({ history }) => {
       console.log(error);
       dispatch(clearErrors());
     }
-
+    
     if (success) {
       alert.success("Product Created Successfully");
       history.push("/admin/dashboard");
