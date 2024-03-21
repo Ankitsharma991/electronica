@@ -14,7 +14,7 @@ import MetaData from "../layout/MetaData";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
-import { PRODUCT_DELETE_RESET } from "../../constants/productConstants";
+import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 
 const ProductList = ({ history }) => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const ProductList = ({ history }) => {
     if (isDeleted) {
       alert.success("Product Deleted Successfully");
       history.push("/admin/dashboard");
-      dispatch({ type: PRODUCT_DELETE_RESET });
+      dispatch({ type: DELETE_PRODUCT_RESET });
     }
 
     dispatch(getAdminProducts());

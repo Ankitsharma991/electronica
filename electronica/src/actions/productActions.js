@@ -12,31 +12,61 @@ import {
   PRODUCT_DETAILS_FAIL,
   NEW_REVIEW_FAIL,
   NEW_REVIEW_REQUEST,
-  NEW_REVIEW_RESET,
+  // NEW_REVIEW_RESET,
   NEW_REVIEW_SUCCESS,
   CLEAR_ERRORS,
   NEW_PRODUCT_FAIL,
   NEW_PRODUCT_REQUEST,
   NEW_PRODUCT_SUCCESS,
-  PRODUCT_DELETE_SUCCESS,
-  PRODUCT_DELETE_FAIL,
-  PRODUCT_DELETE_REQUEST,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL,
+  DELETE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
 
 // Delete product
 export const deleteProduct = (id) => async (dispatch) => {
   try {
-    dispatch({ type: PRODUCT_DELETE_REQUEST });
+    dispatch({ type: DELETE_PRODUCT_REQUEST });
 
     const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
 
     dispatch({
-      type: PRODUCT_DELETE_SUCCESS,
+      type: DELETE_PRODUCT_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: PRODUCT_DELETE_FAIL,
+      type: DELETE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// update product
+export const updateProduct = (id, productData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PRODUCT_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/api/v1/admin/product/${id}`,
+      productData,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_PRODUCT_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PRODUCT_FAIL,
       payload: error.response.data.message,
     });
   }
