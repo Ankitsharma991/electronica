@@ -1,5 +1,5 @@
-import { Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
+import { Typography, Stepper, StepLabel, Step } from "@material-ui/core";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import LibraryAddCheckIcon from "@material-ui/icons/LibraryAddCheck";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
@@ -36,7 +36,7 @@ const CheckoutSteps = ({ activeStep }) => {
           >
             <StepLabel
               style={{
-                color: activeStep >= index ? "tomato" : "rgba(0,0,0,0.649)",
+                color: activeStep >= index ? "tomato" : "rgba(0, 0, 0, 0.649)",
               }}
               icon={item.icon}
             >

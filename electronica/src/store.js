@@ -4,25 +4,33 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   newProductReducer,
   newReviewReducer,
-  productDetailReducer,
+  productDetailsReducer,
   productReducer,
+  productReviewsReducer,
   productsReducer,
-} from "./reducers/productReducers";
+  reviewReducer,
+} from "./reducers/productReducer";
+
 import {
+  allUsersReducer,
   forgotPasswordReducer,
   profileReducer,
+  userDetailsReducer,
   userReducer,
 } from "./reducers/userReducer";
-import { cartReducer } from "./reducers/CartReducer";
+
+import { cartReducer } from "./reducers/cartReducer";
 import {
+  allOrdersReducer,
   myOrdersReducer,
   newOrderReducer,
   orderDetailsReducer,
-} from "./reducers/orderReducers";
+  orderReducer,
+} from "./reducers/orderReducer";
 
 const reducer = combineReducers({
   products: productsReducer,
-  productDetails: productDetailReducer,
+  productDetails: productDetailsReducer,
   user: userReducer,
   profile: profileReducer,
   forgotPassword: forgotPasswordReducer,
@@ -33,6 +41,12 @@ const reducer = combineReducers({
   newReview: newReviewReducer,
   newProduct: newProductReducer,
   product: productReducer,
+  allOrders: allOrdersReducer,
+  order: orderReducer,
+  allUsers: allUsersReducer,
+  userDetails: userDetailsReducer,
+  productReviews: productReviewsReducer,
+  review: reviewReducer,
 });
 
 let initialState = {
@@ -47,6 +61,7 @@ let initialState = {
 };
 
 const middleware = [thunk];
+
 const store = createStore(
   reducer,
   initialState,

@@ -5,14 +5,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(221, 221, 221);
+  background-color: rgb(231, 231, 231);
   position: fixed;
-  top: 0;
+  top: 0%;
   left: 0;
 }
 
 .searchBox > input[type="text"] {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.224);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.274);
   background-color: white;
   border: none;
   color: rgba(0, 0, 0, 0.637);
@@ -40,4 +40,18 @@
 
 .searchBox > input[type="submit"]:hover {
   background-color: rgb(55, 97, 214);
+}
+
+@media screen and (max-width: 600px) {
+  .searchBox > input[type="text"] {
+    width: 100%;
+    font: 300 4vw cursive;
+    height: 10%;
+  }
+
+  .searchBox > input[type="submit"] {
+    height: 10%;
+    width: 30%;
+    font: 300 4vw "Roboto";
+  }
 }

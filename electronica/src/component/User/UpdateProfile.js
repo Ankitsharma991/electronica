@@ -1,18 +1,13 @@
-import React, { Fragment, useEffect, useState } from "react";
-import "./updateProfile.css";
-import Loader from "../layout/loader/Loader";
+import React, { Fragment, useState, useEffect } from "react";
+import "./UpdateProfile.css";
+import Loader from "../layout/Loader/Loader";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import FaceIcon from "@material-ui/icons/Face";
-
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearErrors,
-  loadUser,
-  updateProfile,
-} from "../../actions/userActions";
+import { clearErrors, updateProfile, loadUser } from "../../actions/userAction";
 import { useAlert } from "react-alert";
-import MetaData from "../layout/MetaData";
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
+import MetaData from "../layout/MetaData";
 
 const UpdateProfile = ({ history }) => {
   const dispatch = useDispatch();

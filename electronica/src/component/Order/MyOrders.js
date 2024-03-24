@@ -2,27 +2,25 @@ import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./myOrders.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, myOrders } from "../../actions/orderActions";
-import Loader from "../layout/loader/Loader";
+import { clearErrors, myOrders } from "../../actions/orderAction";
+import Loader from "../layout/Loader/Loader";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Typography from "@material-ui/core/Typography";
-import Metadata from "../layout/MetaData";
+import MetaData from "../layout/MetaData";
 import LaunchIcon from "@material-ui/icons/Launch";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
+
   const alert = useAlert();
+
   const { loading, error, orders } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
 
   const columns = [
-    {
-      field: "id",
-      headerName: "Order ID",
-      minWidth: 300,
-      flex: 1,
-    },
+    { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
+
     {
       field: "status",
       headerName: "Status",
@@ -41,13 +39,15 @@ const MyOrders = () => {
       minWidth: 150,
       flex: 0.3,
     },
+
     {
       field: "amount",
       headerName: "Amount",
       type: "number",
-      minWidth: 150,
+      minWidth: 270,
       flex: 0.5,
     },
+
     {
       field: "actions",
       flex: 0.3,
@@ -65,12 +65,13 @@ const MyOrders = () => {
     },
   ];
   const rows = [];
+
   orders &&
     orders.forEach((item, index) => {
       rows.push({
+        itemsQty: item.orderItems.length,
         id: item._id,
         status: item.orderStatus,
-        itemsQty: item.orderItems.length,
         amount: item.totalPrice,
       });
     });
@@ -80,12 +81,14 @@ const MyOrders = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+
     dispatch(myOrders());
-  }, [dispatch, error, alert]);
+  }, [dispatch, alert, error]);
 
   return (
     <Fragment>
-      <Metadata title={`${user.name} - Orders`} />
+      <MetaData title={`${user.name} - Orders`} />
+
       {loading ? (
         <Loader />
       ) : (
@@ -98,6 +101,7 @@ const MyOrders = () => {
             className="myOrdersTable"
             autoHeight
           />
+
           <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>
         </div>
       )}

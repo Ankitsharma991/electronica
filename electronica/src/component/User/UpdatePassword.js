@@ -1,14 +1,14 @@
-import React, { Fragment, useEffect, useState } from "react";
-import "./updatePassword.css";
-import Loader from "../layout/loader/Loader";
+import React, { Fragment, useState, useEffect } from "react";
+import "./UpdatePassword.css";
+import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, updatePassword } from "../../actions/userActions";
+import { clearErrors, updatePassword } from "../../actions/userAction";
 import { useAlert } from "react-alert";
-import MetaData from "../layout/MetaData";
 import { UPDATE_PASSWORD_RESET } from "../../constants/userConstants";
+import MetaData from "../layout/MetaData";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import LockIcon from "@material-ui/icons/Lock";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 const UpdatePassword = ({ history }) => {
   const dispatch = useDispatch();
@@ -28,6 +28,7 @@ const UpdatePassword = ({ history }) => {
     myForm.set("oldPassword", oldPassword);
     myForm.set("newPassword", newPassword);
     myForm.set("confirmPassword", confirmPassword);
+
     dispatch(updatePassword(myForm));
   };
 
@@ -38,7 +39,7 @@ const UpdatePassword = ({ history }) => {
     }
 
     if (isUpdated) {
-      alert.success("Password Changed Successfully!");
+      alert.success("Profile Updated Successfully");
 
       history.push("/account");
 
@@ -47,24 +48,24 @@ const UpdatePassword = ({ history }) => {
       });
     }
   }, [dispatch, error, alert, history, isUpdated]);
+
   return (
     <Fragment>
       {loading ? (
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="Update Password" />
+          <MetaData title="Change Password" />
           <div className="updatePasswordContainer">
             <div className="updatePasswordBox">
-              <h2 className="updatePasswordHeading">Change Password</h2>
+              <h2 className="updatePasswordHeading">Update Profile</h2>
 
               <form
                 className="updatePasswordForm"
-                encType="multipart/form-data"
                 onSubmit={updatePasswordSubmit}
               >
                 <div className="loginPassword">
-                  <LockOpenIcon />
+                  <VpnKeyIcon />
                   <input
                     type="password"
                     placeholder="Old Password"
@@ -75,7 +76,7 @@ const UpdatePassword = ({ history }) => {
                 </div>
 
                 <div className="loginPassword">
-                  <VpnKeyIcon />
+                  <LockOpenIcon />
                   <input
                     type="password"
                     placeholder="New Password"
@@ -84,12 +85,11 @@ const UpdatePassword = ({ history }) => {
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
                 </div>
-
                 <div className="loginPassword">
                   <LockIcon />
                   <input
                     type="password"
-                    placeholder="Confirm New Password"
+                    placeholder="Confirm Password"
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}

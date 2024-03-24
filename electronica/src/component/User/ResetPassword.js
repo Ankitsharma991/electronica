@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
-import "./resetPassword.css";
-import Loader from "../layout/loader/Loader";
+import React, { Fragment, useState, useEffect } from "react";
+import "./ResetPassword.css";
+import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, resetPassword } from "../../actions/userActions";
+import { clearErrors, resetPassword } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
 import LockIcon from "@material-ui/icons/Lock";
 
 const ResetPassword = ({ history, match }) => {
@@ -42,24 +42,24 @@ const ResetPassword = ({ history, match }) => {
       history.push("/login");
     }
   }, [dispatch, error, alert, history, success]);
+
   return (
     <Fragment>
       {loading ? (
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="Reset Password" />
+          <MetaData title="Change Password" />
           <div className="resetPasswordContainer">
             <div className="resetPasswordBox">
-              <h2 className="resetPasswordHeading">Change Password</h2>
+              <h2 className="resetPasswordHeading">Update Profile</h2>
 
               <form
                 className="resetPasswordForm"
-                encType="multipart/form-data"
                 onSubmit={resetPasswordSubmit}
               >
                 <div>
-                  <VpnKeyIcon />
+                  <LockOpenIcon />
                   <input
                     type="password"
                     placeholder="New Password"
@@ -68,12 +68,11 @@ const ResetPassword = ({ history, match }) => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-
-                <div>
+                <div className="loginPassword">
                   <LockIcon />
                   <input
                     type="password"
-                    placeholder="Confirm New Password"
+                    placeholder="Confirm Password"
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -81,7 +80,7 @@ const ResetPassword = ({ history, match }) => {
                 </div>
                 <input
                   type="submit"
-                  value="Reset"
+                  value="Update"
                   className="resetPasswordBtn"
                 />
               </form>
