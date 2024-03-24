@@ -3,9 +3,10 @@ import "./aboutSection.css";
 import { Button, Typography, Avatar } from "@material-ui/core";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import InstagramIcon from "@material-ui/icons/Instagram";
+import img from "../../../images/2.jpg"
 const About = () => {
   const visitInstagram = () => {
-    window.location = "https://instagram.com/meabhisingh";
+    window.location = "https://instagram.com/an_kit.11";
   };
   return (
     <div className="aboutSection">
@@ -18,7 +19,7 @@ const About = () => {
           <div>
             <Avatar
               style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
-              src="https://res.cloudinary.com/tripleayt/image/upload/v1631555947/products/jpyibarlaxawvcvqjv5b.png"
+              src={img}
               alt="Founder"
             />
             <Typography>Ankit Sharma</Typography>
